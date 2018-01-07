@@ -16,43 +16,41 @@ let Xp = new Array(M);
 let Fg;
 let Xg = new Array(D);
 
-for ( let s = 1; s <= 1; s++ ) {
-  initArray();
-  initParticle();
-  Fg = Infinity;
+initArray();
+initParticle();
+Fg = Infinity;
 
-  let t = 0;
-  for ( t = 1; t <= Tmax; t++ ) {
-    for ( let i = 0; i < M; i++ ) {
-      F[i] = sphere(i);
-      // F[i] = rastrigin(i);
-      if ( F[i] < Fp[i] ) {
-        Fp[i] = F[i];
-        for ( let d = 0; d < D; d++ ) {
-          Xp[i][d] = X[i][d];
-        }
-        if ( Fp[i] < Fg ) {
-          for ( let d = 0; d < D; d++ ) {
-            Xg[d] = X[i][d];
-          }
-          Fg = Fp[i];
-        }
-      }
-    }
-    if ( Fg < Cr ) {
-      break;
-    }
-    for ( let i = 0; i < M; i++ ) {
+let t = 0;
+for ( t = 1; t <= Tmax; t++ ) {
+  for ( let i = 0; i < M; i++ ) {
+    F[i] = sphere(i);
+    // F[i] = rastrigin(i);
+    if ( F[i] < Fp[i] ) {
+      Fp[i] = F[i];
       for ( let d = 0; d < D; d++ ) {
-        V[i][d] = w * V[i][d] + c * Math.random() * (Xp[i][d] - X[i][d]) + c * Math.random() *   (Xg[d] - X[i][d]);
-        X[i][d] = X[i][d] + V[i][d];
+        Xp[i][d] = X[i][d];
+      }
+      if ( Fp[i] < Fg ) {
+        for ( let d = 0; d < D; d++ ) {
+          Xg[d] = X[i][d];
+        }
+        Fg = Fp[i];
       }
     }
   }
-  console.log("終了時刻 t = " + t);
-  console.log("解の目的関数値 Fg = " + Fg);
-  console.log("解 Xg = [" + Xg + "]");
+  if ( Fg < Cr ) {
+    break;
+  }
+  for ( let i = 0; i < M; i++ ) {
+    for ( let d = 0; d < D; d++ ) {
+      V[i][d] = w * V[i][d] + c * Math.random() * (Xp[i][d] - X[i][d]) + c * Math.random() *   (Xg[d] - X[i][d]);
+      X[i][d] = X[i][d] + V[i][d];
+    }
+  }
 }
+console.log("終了時刻 t = " + t);
+console.log("解の目的関数値 Fg = " + Fg);
+console.log("解 Xg = [" + Xg + "]");
 
 function sphere(i) {
   let result = 0;
