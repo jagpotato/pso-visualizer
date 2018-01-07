@@ -1,5 +1,5 @@
 const M = 30;
-const D = 5;
+const D = 2;
 
 const c = 1.494;
 const w = 0.729;

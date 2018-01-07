@@ -10,6 +10,10 @@ function plot(X, M) {
 
   c3.generate({
     bindto: '#graph',
+    padding: {
+      right: 100,
+      left: 100
+    },
     data: {
       xs: {
         x2: 'x1',
@@ -43,6 +47,10 @@ function plot(X, M) {
         },
         tick: {
           format: d3.format('.1f')
+        },
+        padding: {
+          top: 0,
+          bottom: 0
         },
         max: 5,
         min: -5
