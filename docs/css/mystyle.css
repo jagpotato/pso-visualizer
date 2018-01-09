@@ -1,0 +1,12 @@
+table {
+  display: none;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #000000;
+}
+
+.last-tr {
+  color: red;
+}

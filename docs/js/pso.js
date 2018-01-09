@@ -16,19 +16,22 @@ let Xp = new Array(M);
 let Fg;
 let Xg = new Array(D);
 
-pso();
-
 function pso() {
+  // 初期化
   initArray();
   initParticle();
   Fg = Infinity;
+
+  initTable();
 
   let t = 0;
   let x1, x2;
   loop();
   function loop() {
     t++;
-    plot(X, M);
+    if ( D == 2 ) {
+      plot(X, M);
+    }
     for ( let i = 0; i < M; i++ ) {
       F[i] = sphere(i);
       // F[i] = rastrigin(i);
@@ -45,8 +48,12 @@ function pso() {
         }
       }
     }
+    // 表の更新
+    appendTd(t, Fg, Xg);
+    //
     let timerId = setTimeout(loop, 150);
-    if ( Fg < Cr || timerId == Tmax ) {
+    if ( Fg < Cr || t == Tmax ) {
+      changeLastTrColor();
       console.log("終了時刻 t = " + t);
       console.log("解の目的関数値 Fg = " + Fg);
       console.log("解 Xg = [" + Xg + "]");
