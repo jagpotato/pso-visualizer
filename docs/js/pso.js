@@ -1,25 +1,23 @@
-const M = 30;
-const D = 2;
-
-const c = 1.494;
-const w = 0.729;
-const Tmax = 1000;
-const Cr = 1e-5;
-const Xmin = -5;
-const Xmax = 5;
-
-let X = new Array(M);
-let V = new Array(M);
-let F = new Array(M);
-let Fp = new Array(M);
-let Xp = new Array(M);
-let Fg;
-let Xg = new Array(D);
-
 function pso() {
+  const M = 30;
+  const D = 2;
+
+  const c = 1.494;
+  const w = 0.729;
+  const Tmax = 1000;
+  const Cr = 1e-5;
+
+  let X = new Array(M);
+  let V = new Array(M);
+  let F = new Array(M);
+  let Fp = new Array(M);
+  let Xp = new Array(M);
+  let Fg;
+  let Xg = new Array(D);
+
   // 初期化
-  initArray();
-  initParticle();
+  initArray(X, V, Xp, Fp, M, D);
+  initParticle(X, V, M, D);
   Fg = Infinity;
 
   initTable();
@@ -33,7 +31,7 @@ function pso() {
       plot(X, M);
     }
     for ( let i = 0; i < M; i++ ) {
-      F[i] = sphere(i);
+      F[i] = sphere(X, i, D);
       // F[i] = rastrigin(i);
       if ( F[i] < Fp[i] ) {
         Fp[i] = F[i];
@@ -68,7 +66,7 @@ function pso() {
   }
 }
 
-function sphere(i) {
+function sphere(X, i, D) {
   let result = 0;
   for ( let d = 0; d < D; d++ ) {
     result += Math.pow(X[i][d], 2);
@@ -84,7 +82,7 @@ function rastrigin(i) {
   return result;
 }
 
-function initParticle() {
+function initParticle(X, V, M, D) {
   for ( let i = 0; i < M; i++ ) {
     for ( let d = 0; d < D; d++ ) {
       X[i][d] = makeRand();
@@ -94,7 +92,7 @@ function initParticle() {
   }
 }
 
-function initArray() {
+function initArray(X, V, Xp, Fp, M, D) {
   for ( let i = 0; i < M; i++ ) {
     X[i] = new Array(D);
     V[i] = new Array(D);
@@ -104,5 +102,7 @@ function initArray() {
 }
 
 function makeRand() {
+  const Xmin = -5;
+  const Xmax = 5;
   return Math.random() * (Xmax - Xmin) + Xmin;
 }
