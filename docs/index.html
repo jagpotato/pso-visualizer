@@ -13,8 +13,25 @@
     <script type="text/javascript" src="js/table.js"></script>
   </head>
   <body>
+    <div id="dimension-radio">
+      次元：
+      <label><input type="radio" name="dimension" value="2" checked="checked">2</label>
+      <label><input type="radio" name="dimension" value="5">5</label>
+      <label><input type="radio" name="dimension" value="20">20</label>
+    </div>
+    <div id="function-radio">
+      目的関数：
+      <label><input type="radio" name="function" value="sphere" checked="checked">Sphere</label>
+      <label><input type="radio" name="function" value="rastrigin">Rastrigin</label>
+    </div>
+    <div id="tmax-radio">
+      最大繰り返し回数：
+      <label><input type="radio" name="tmax" value="1">1</label>
+      <label><input type="radio" name="tmax" value="10">10</label>
+      <label><input type="radio" name="tmax" value="100">100</label>
+      <label><input type="radio" name="tmax" value="1000" checked="checked">1000</label>
+    </div>
     <button type="button" name="pso-button" id="pso-button">開始</button>
-    <div id="graph"></div>
     <table id="result-table"></table>
     <script type="text/javascript" src="js/event.js"></script>
   </body>

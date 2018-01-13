@@ -1,10 +1,11 @@
 function pso() {
   const M = 30;
-  const D = 2;
+  const D = u("input[name=dimension]:checked").attr("value");
+  const FUNCTION = u("input[name=function]:checked").attr("value");
 
   const c = 1.494;
   const w = 0.729;
-  const Tmax = 1000;
+  const Tmax = u("input[name=tmax]:checked").attr("value");;
   const Cr = 1e-5;
 
   let X = new Array(M);
@@ -31,8 +32,11 @@ function pso() {
       plot(X, M);
     }
     for ( let i = 0; i < M; i++ ) {
-      F[i] = sphere(X, i, D);
-      // F[i] = rastrigin(i);
+      switch ( FUNCTION ) {
+        case "sphere": F[i] = sphere(X, i, D); break;
+        case "rastrigin": F[i] = rastrigin(X, i, D); break;
+        default: F[i] = sphere(X, i, D); break;
+      }
       if ( F[i] < Fp[i] ) {
         Fp[i] = F[i];
         for ( let d = 0; d < D; d++ ) {
@@ -55,6 +59,7 @@ function pso() {
       console.log("終了時刻 t = " + t);
       console.log("解の目的関数値 Fg = " + Fg);
       console.log("解 Xg = [" + Xg + "]");
+      // u("#pso-button").attr("disabled", "");
       clearTimeout(timerId);
     }
     for ( let i = 0; i < M; i++ ) {
@@ -74,7 +79,7 @@ function sphere(X, i, D) {
   return result;
 }
 
-function rastrigin(i) {
+function rastrigin(X, i, D) {
   let result = 0;
   for ( let d = 0; d < D; d++ ) {
     result += Math.pow(X[i][d], 2) - 10 * Math.cos(2 * Math.PI * X[i][d]) + 10;
